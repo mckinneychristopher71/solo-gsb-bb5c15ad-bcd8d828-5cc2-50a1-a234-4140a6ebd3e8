@@ -1,0 +1,15 @@
+services:
+  uploader:
+    build: .
+    container_name: chunked-uploader
+    ports:
+      - "8000:8000"
+    environment:
+      STORAGE_DIR: /data/storage
+      # MAX_CHUNK_SIZE: "67108864"   # 单个分片大小上限, 默认 64 MiB
+    volumes:
+      - uploader-data:/data/storage
+    restart: unless-stopped
+
+volumes:
+  uploader-data:
